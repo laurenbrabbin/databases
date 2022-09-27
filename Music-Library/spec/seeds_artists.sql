@@ -12,6 +12,7 @@ TRUNCATE TABLE artists RESTART IDENTITY; -- replace with your own table name.
 INSERT INTO artists (name, genre) VALUES('Pixies', 'Rock');
 INSERT INTO artists (name, genre) VALUES('Abba', 'Pop');
 
+SELECT name, genre FROM artists WHERE id = $1;
 -- Run this SQL file on the database to truncate (empty) the table, and insert the seed data. Be mindful of the fact any existing records in the table will be deleted.
 -- psql -h 127.0.0.1 your_database_name < seeds_{table_name}.sql
 

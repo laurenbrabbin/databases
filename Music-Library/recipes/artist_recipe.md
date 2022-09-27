@@ -20,7 +20,7 @@ If seed data is provided (or you already created it), you can skip this step.
 -- so we can start with a fresh state.
 -- (RESTART IDENTITY resets the primary key)
 
-TRUNCATE TABLE students RESTART IDENTITY; -- replace with your own table name.
+TRUNCATE TABLE arists RESTART IDENTITY; -- replace with your own table name.
 
 -- Below this line there should only be `INSERT` statements.
 -- Replace these statements with your own seed data.
@@ -62,10 +62,10 @@ Define the attributes of your Model class. You can usually map the table columns
 # Model class
 # (in lib/student.rb)
 
-class Student
+class Artist
 
   # Replace the attributes by your own columns.
-  attr_accessor :id, :name, :cohort_name
+  attr_accessor :id, :name, :genre
 end
 
 # The keyword attr_accessor is a special Ruby feature
@@ -100,7 +100,9 @@ class ArtistRepository
 
     # Returns an array of Artist objects.
   end
-
+  def find(id)
+    #execute SQL query:
+    #SELECT id, name, genre FROM artists WHERE id = $1
 end
 
 ## 6. Write Test Examples
@@ -116,20 +118,31 @@ These examples will later be encoded as RSpec tests.
 repo = ArtistRepository.new
 
 artists = repo.all
-artist.length # => 2 since there are 2 columns
-artist.first.id # => '1'
-artist.first.name # => 'Pixies'
+artists.length # => 2 since there are 2 columns
+artists.first.id # => '1'
+artists.first.name # => 'Pixies'
 
 # 2
-# Get a single student
+# Get a single artist
 
-repo = StudentRepository.new
+repo = ArtistRepository.new
 
-student = repo.find(1)
+artist = repo.find(1)
 
-student.id # =>  1
-student.name # =>  'David'
-student.cohort_name # =>  'April 2022'
+artist.id # =>  1
+artist.name # =>  'Pixies'
+artist.genre # =>  'Rock' 
+
+#3
+#get another single artist 
+
+repo = ArtistRepository.new
+
+student = repo.find(2)
+
+artist.id # =>  2
+ariist.name # =>  'ABBA'
+artist.genre # =>  'Pop' 
 
 # Add more examples for each method
 Encode this example as a test.
@@ -145,14 +158,14 @@ This is so you get a fresh table contents every time you run the test suite.
 # file: spec/student_repository_spec.rb
 
 def reset_students_table
-  seed_sql = File.read('spec/seeds_students.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'students' })
+  seed_sql = File.read('spec/seeds_artists.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'music-library' })
   connection.exec(seed_sql)
 end
 
-describe StudentRepository do
+describe ArtistRepository do
   before(:each) do 
-    reset_students_table
+    reset_artist_table
   end
 
   # (your tests will go here).

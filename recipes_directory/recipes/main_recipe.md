@@ -41,31 +41,37 @@ psql -h 127.0.0.1 your_database_name < seeds_{table_name}.sql
 Usually, the Model class name will be the capitalised table name (single instead of plural). The same name is then suffixed by Repository for the Repository class name.
 
 # EXAMPLE
-# Table name: artists
+# Table name: recipes
 
 # Model class
-# (in lib/student.rb)
-class Album
+# (in lib/recipe.rb)
+class Recipe
+  attr_accessor :id, :name, :cooking_time, :rating
 end
 
 # Repository class
 # (in lib/student_repository.rb)
-class AlbumRepository
+class RecipeRepository
+  def all
+  end
+
+  def find
+  end
 end
 
 ## 4. Implement the Model class
 Define the attributes of your Model class. You can usually map the table columns to the attributes of the class, including primary and foreign keys.
 
 # EXAMPLE
-# Table name: students
+# Table name: recipes
 
 # Model class
-# (in lib/student.rb)
+# (in lib/recipe.rb)
 
-class Album
+class Recipe
 
   # Replace the attributes by your own columns.
-  attr_accessor :id, :title, :release_year, :artist_id
+  attr_accessor :id, :name, :cooking_time, :rating
 end
 
 # The keyword attr_accessor is a special Ruby feature
@@ -85,10 +91,10 @@ Your Repository class will need to implement methods for each "read" or "write" 
 Using comments, define the method signatures (arguments and return value) and what they do - write up the SQL queries that will be used by each method.
 
 # EXAMPLE
-# Table name: artist
+# Table name: recipes
 
 # Repository class
-# (in lib/artist_repository.rb)
+# (in lib/recipe_repository.rb)
 
 class AlbumRepository
 
@@ -96,14 +102,14 @@ class AlbumRepository
   # No arguments
   def all
     # Executes the SQL query:
-    # SELECT id, title, release_year, artist_id FROM albums;
+    # SELECT id, name, cooking_time, rating FROM recipes;
 
-    # Returns an array of Album objects.
+    # Returns an array of recipes objects.
   end
 
   def find(id)
     #execute SQL query:
-    SELECT id, title, release_year, artist_id FROM albums WHERE id = $1
+    SELECT id, name, cooking_time, rating FROM recipes WHERE id = $1
   end 
 
 end
@@ -116,41 +122,41 @@ These examples will later be encoded as RSpec tests.
 # EXAMPLES
 
 # 1
-# Get all albums
+# Get all recipes
 
-repo = AlbumRepository.new
+repo = RecipeRepository.new
 
-albums = repo.all
+recipes = repo.all
 
-albums.length # => 2 
-albums.first.id # => '1'
-albums.first.title # => 'Doolittle'
-albums.first.release_year # => '1989'
-albums.first.artist_id # => '1'
+recipes.length # => 2 
+recipes.first.id # => '1'
+recipes.first.name # => 'pizza'
+recipes.first.cooking_time # => '1'
+recipes.first.rating # => '4'
 
 # 2
 # Get a single album
 
-repo = AlbumRepository.new
+repo = RecipeRepository.new
 
-album = repo.find(1)
+recipe = repo.find(1)
 
-album.id # =>  1
-album.name # =>  'Dolittle'
-album.release_date # =>  '1989'
-album.artist_id # => '1'
+recipe.id # =>  1
+recipe.name # =>  'pizza'
+recipe.cooking_time # =>  '1'
+recipe.rating # => '4'
 
 # 2
 # Get a another single album
 
 repo = AlbumRepository.new
 
-album = repo.find(2)
+recipe = repo.find(2)
 
-album.id # =>  3
-album.name # =>  'Waterloo'
-album.release_date # =>  '1972'
-album.artist_id # => '2'
+recipe.id # =>  2
+recipe.name # =>  'pasta'
+recipe.cooking_time # =>  '1'
+recipe.rating # => '3'
 
 # Add more examples for each method
 Encode this example as a test.
