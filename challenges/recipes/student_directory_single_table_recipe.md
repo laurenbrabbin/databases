@@ -61,6 +61,6 @@ CREATE TABLE students (
 
 5. Create the table in the database.
 
-psql -h 127.0.0.1 database_name < albums_table.sql
+psql -h 127.0.0.1 student_directory_2 < albums_table.sql
 
 you can also go into TablePlus download the database and inset the SQL into the SQL section at the top and click run all and then refresh 
