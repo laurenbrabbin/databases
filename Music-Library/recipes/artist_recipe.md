@@ -144,6 +144,45 @@ artist.id # =>  2
 ariist.name # =>  'ABBA'
 artist.genre # =>  'Pop' 
 
+#4 create a new artist 
+repo = ArtitRepository.new
+
+artist = Artist.new
+artist.name = 'Beatles'
+artist.genre = 'Pop'
+
+repo.create(artist)
+
+artists = repo.all
+
+last_artist = artists.last
+last_artist.name # => 'Beatles'
+last_artist.genre # => 'Pop'
+
+#5 
+repo = ArtitRepository.new
+
+id_to_delete = 1
+
+repo.delete(id_to_delete)
+
+all_artists = repo.all
+all_artists.first.id # => 2
+
+#6 
+repo = ArtitRepository.new
+artist = repo.find(1)
+
+artist.name = 'something else'
+artist.genre = 'disco'
+
+repo.update(artist)
+
+updated_artist = repo.find(1)
+
+updated_artist.name # => 'something else'
+updated_artist.genre # => 'disco'
+
 # Add more examples for each method
 Encode this example as a test.
 ```

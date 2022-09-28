@@ -41,4 +41,70 @@ RSpec.describe ArtistRepository do
     expect(artist.name).to eq('Abba') # =>  'Pixies'
     expect(artist.genre).to eq('Pop') # =>  'Rock'
   end
+
+  it "adds a new artist" do
+    repo = ArtistRepository.new
+
+    new_artist = Artist.new
+    new_artist.name = 'Beatles'
+    new_artist.genre = 'Pop'
+
+    repo.create(new_artist)
+
+    artists = repo.all
+
+    last_artist = artists.last
+    
+    expect(last_artist.name).to eq('Beatles') 
+    expect(last_artist.genre).to eq('Pop') 
+  end
+
+  it "deletes an artist" do
+    repo = ArtistRepository.new
+
+    id_to_delete = 1
+
+    repo.delete(id_to_delete)
+
+    all_artists = repo.all
+    expect(all_artists.first.id).to eq("2") #because one should be deleted
+  end
+
+  it "deletes the two artists" do
+    repo = ArtistRepository.new
+
+    repo.delete(1) #deleting artists with id one and two
+    repo.delete(2)
+
+    all_artists = repo.all
+    expect(all_artists.length).to eq(0) #because one should be deleted
+  end
+
+  it "updates the artist" do
+    repo = ArtistRepository.new
+    artist = repo.find(1)
+
+    artist.name = 'something else'
+    artist.genre = 'disco'
+
+    repo.update(artist)
+
+    updated_artist = repo.find(1)
+
+    expect(updated_artist.name).to eq('something else') 
+    expect(updated_artist.genre).to eq ('disco') 
+  end
+  it "updates new name only" do
+    repo = ArtistRepository.new
+    artist = repo.find(1)
+
+    artist.name = 'something else'
+
+    repo.update(artist)
+
+    updated_artist = repo.find(1)
+
+    expect(updated_artist.name).to eq('something else') 
+    expect(updated_artist.genre).to eq ('Rock') 
+  end
 end 

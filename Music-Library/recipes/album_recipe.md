@@ -153,6 +153,22 @@ album.release_date # =>  '1972'
 album.artist_id # => '2'
 
 # Add more examples for each method
+
+#4 create a new album 
+repo = AlbumRepository.new
+
+new_album = Album.new
+new_album.name  # = 'Super Trouper'
+new_album.release_year # = '1980'
+new_album.artist_id # = '2'
+
+repo.create(new_album)
+
+albums = repo.all
+
+last_album = albums.last
+last_album.name # => 'Beatles'
+last_album.genre # => 'Pop'
 Encode this example as a test.
 ```
 

@@ -3,7 +3,7 @@ require_relative './database_connection'
 
 class AlbumRepository
   def all
-  sql = 'SELECT id, title, release_year, artist_id FROM albums;'
+    sql = 'SELECT id, title, release_year, artist_id FROM albums;'
     result_set = DatabaseConnection.exec_params(sql, [])
     
     albums = []
@@ -35,5 +35,14 @@ class AlbumRepository
     album.artist_id = record['artist_id']
 
     return album
+  end
+  def create(album)
+    sql = 'INSERT INTO 
+            albums (title, release_year, artist_id) 
+            VALUES($1, $2, $3);'
+    sql_params = [album.title, album.release_year, album.artist_id]
+
+    DatabaseConnection.exec_params(sql, sql_params)
+    return nil
   end
 end
