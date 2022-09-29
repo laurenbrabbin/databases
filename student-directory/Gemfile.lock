@@ -3,6 +3,8 @@ GEM
   specs:
     diff-lcs (1.5.0)
     pg (1.4.3)
+    respec (0.9.1)
+      rspec (>= 2.11)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
@@ -22,6 +24,7 @@ PLATFORMS
 
 DEPENDENCIES
   pg (~> 1.4)
+  respec (~> 0.9.1)
   rspec (~> 3.11)
 
 BUNDLED WITH
