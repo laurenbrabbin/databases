@@ -26,7 +26,6 @@ RSpec.describe PostRepository do
     repo = PostRepository.new
 
     post = repo.find_with_comments(1) #find students in cohort 1
-    p post.comments
     expect(post.title).to eq('Monday') 
     expect(post.content).to eq('I went to the shop')
     expect(post.comments.length).to eq(2) 
