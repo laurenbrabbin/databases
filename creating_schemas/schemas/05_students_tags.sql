@@ -1,0 +1,22 @@
+-- database: student_directory_3
+
+-- Create the first table.
+CREATE TABLE students (
+  id SERIAL PRIMARY KEY,
+  name text
+);
+
+-- Create the second table.
+CREATE TABLE tags (
+  id SERIAL PRIMARY KEY,
+  title text
+);
+
+-- Create the join table.
+CREATE TABLE student_tags (
+  student_id int,
+  tag_id int,
+  constraint fk_post foreign key(student_id) references students(id) on delete cascade,
+  constraint fk_tag foreign key(tag_id) references tags(id) on delete cascade,
+  PRIMARY KEY (student_id, tag_id)
+);

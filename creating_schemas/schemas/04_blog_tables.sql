@@ -1,3 +1,5 @@
+-- database: blogs
+
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
   title text,

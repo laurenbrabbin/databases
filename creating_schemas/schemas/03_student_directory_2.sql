@@ -1,3 +1,5 @@
+-- database: student_directory_2
+
 CREATE TABLE cohorts (
   id SERIAL PRIMARY KEY,
   name text,
