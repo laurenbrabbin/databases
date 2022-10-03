@@ -13,7 +13,7 @@ CREATE TABLE comments (
   content text,
 -- The foreign key name is always {other_table_singular}_id
   post_id int,
-  constraint fk_artist foreign key(post_id)
+  constraint fk_post foreign key(post_id)
     references posts(id)
     on delete cascade
 );
